@@ -1,4 +1,4 @@
-package structure;
+package structure.analyze;
 
 import java.io.IOException;
 import java.nio.file.Files;
