@@ -3,11 +3,14 @@ package testpackages.util;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.Calendar;
 
 /**
  * Hanterar konverteringen från strängar till date.
  */
 public class DatumUtil {
+
+    private Calendar oldUnusedObject = Calendar.getInstance();
 
     public enum DateFormat {
         YYYYMMDD("yyyyMMdd"),
@@ -27,6 +30,8 @@ public class DatumUtil {
     public static LocalDateTime formateraDatumString(String datumString, DateFormat format) throws Exception {
         try {
             LocalDateTime dateTime = LocalDateTime.parse(datumString, DateTimeFormatter.ofPattern(format.getPattern()));
+            UtilUtil utilUtil = new UtilUtil();
+            utilUtil.printTotallyMeaninglessMessage();
             return dateTime;
         } catch (Exception ex) {
             throw new Exception(ex.getMessage() + "\nDatumstring:" + datumString + " format:" + format.getPattern());
