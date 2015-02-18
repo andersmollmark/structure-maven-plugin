@@ -6,6 +6,7 @@ import static java.util.Arrays.asList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.math.BigInteger;
 
 
 
@@ -48,5 +49,9 @@ public class DatumUtil {
 
     public void doNothing(){
         List<String> strings = asList("2", "3");
+    }
+
+    public BigInteger returnBigInteger(){
+        return BigInteger.ONE;
     }
 }
