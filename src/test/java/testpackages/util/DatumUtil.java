@@ -2,8 +2,12 @@ package testpackages.util;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
+import static java.util.Arrays.asList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
+
 
 /**
  * Hanterar konverteringen från strängar till date.
@@ -40,5 +44,9 @@ public class DatumUtil {
 
     public Date getIdagIFormAvDateAvNgnAnledning(){
         return new Date();
+    }
+
+    public void doNothing(){
+        List<String> strings = asList("2", "3");
     }
 }

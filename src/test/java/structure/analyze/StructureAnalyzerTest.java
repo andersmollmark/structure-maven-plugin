@@ -29,7 +29,7 @@ public class StructureAnalyzerTest {
     @Test
     public void readUtilFileAndWarnForImports() throws IOException {
         List<String> warnings = analyzer.getAnalyzedResultAF1(StructureAnalyzer.FILE_DATUM_UTIL, StructureAnalyzer.PATH_UTIL);
-        assertThat(warnings.size(), is(3));
+        assertThat(warnings.size(), is(4));
         warnings.forEach(System.out::println);
     }
 }
