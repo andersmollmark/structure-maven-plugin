@@ -10,11 +10,11 @@ public class StringPredicate {
     private final static String IMPORT = "import ";
     private final static String PACKAGE = "package ";
 
-    public Predicate<String> containsImport() {
+    public static Predicate<String> containsImport() {
         return s -> s.contains(IMPORT);
     }
 
-    public Predicate<String> containsPackage() {
+    public static Predicate<String> containsPackage() {
         return s -> s.contains(PACKAGE);
     }
 }
