@@ -12,14 +12,25 @@ public class StringPredicate {
     private final static String DOUBLESTAR = "**";
 
     public static Predicate<String> containsImport() {
-        return s -> s.contains(IMPORT);
+        return s -> isImportRow(s);
     }
 
     public static Predicate<String> containsPackage() {
-        return s -> s.contains(PACKAGE);
+        return s -> isPackageRow(s);
     }
 
     public static Predicate<String> isFileNameInConfFile(){ return s -> s.startsWith(DOUBLESTAR);}
 
-    public static Predicate<String> isRuleInConfFile(){ return s -> !s.startsWith(DOUBLESTAR);}
+    public static Predicate<String> isAnAllowedReference(){ return s -> !s.startsWith(DOUBLESTAR);}
+
+    public static Predicate<String> containsImportOrPackage(){return s -> isImportRow(s) || isPackageRow(s);}
+
+    private static boolean isImportRow(String s){
+        return s.contains(IMPORT);
+    }
+
+    private static boolean isPackageRow(String s){
+        return s.contains(PACKAGE);
+    }
+
 }

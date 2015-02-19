@@ -27,8 +27,12 @@ public class Configuration {
         rules.get(file).addAll(allowedReferences);
     }
 
-    public Stream<String> getRules(String filename){
-        return rules.get(filename).stream();
+    public List<String> getRules(String filename){
+        return rules.get(filename);
+    }
+
+    public Map<String, List<String>> getAllRulesPerFile(){
+        return rules;
     }
 
 }

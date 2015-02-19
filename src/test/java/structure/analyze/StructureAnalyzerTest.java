@@ -1,6 +1,8 @@
 package structure.analyze;
 
 import org.junit.Test;
+import structure.analyze.configuration.Configuration;
+import structure.analyze.configuration.ConfigurationReader;
 
 import java.io.IOException;
 import java.util.List;
@@ -27,9 +29,19 @@ public class StructureAnalyzerTest {
     }
 
     @Test
-    public void readUtilFileAndWarnForImports() throws IOException {
+    public void readUtilFileAndWarnForImportsShouldReturn4Warnings() throws IOException {
         List<String> warnings = analyzer.getAnalyzedResultAF1(StructureAnalyzer.FILE_DATUM_UTIL, StructureAnalyzer.PATH_UTIL);
-        assertThat(warnings.size(), is(4));
+        assertThat(warnings.size(), is(5));
         warnings.forEach(System.out::println);
     }
+
+    @Test
+    public void readUtilFileAndWarnForImportsAndUseRulesFileShouldReturn2Warnings() throws IOException {
+        Configuration configuration = new ConfigurationReader().readConfigFileForOneFile(ConfigurationReader.FILE_NAME, ConfigurationReader.PATH);
+        List<String> warnings = analyzer.getAnalyzedResultAF2(StructureAnalyzer.FILE_DATUM_UTIL, StructureAnalyzer.PATH_UTIL, configuration);
+        warnings.forEach(System.out::println);
+        assertThat(warnings.size(), is(3));
+
+    }
+
 }
