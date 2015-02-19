@@ -21,14 +21,6 @@ public class StructureAnalyzerTest {
     private static final String IMPORT = "import ";
 
     @Test
-    public void readUtilFileWithImports() throws IOException {
-        FileAnalyzeResult result = analyzer.getRowsWithPrefix(IMPORT);
-        assertThat(result.getImportRows().size(), is(3));
-
-        result.getImportRows().forEach(s -> System.out.println("En importrad:" + s));
-    }
-
-    @Test
     public void readUtilFileAndWarnForImportsShouldReturn4Warnings() throws IOException {
         List<String> warnings = analyzer.getAnalyzedResultAF1(StructureAnalyzer.FILE_DATUM_UTIL, StructureAnalyzer.PATH_UTIL);
         assertThat(warnings.size(), is(5));

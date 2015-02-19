@@ -5,8 +5,7 @@ import junit.framework.TestCase;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Stream;
 
 import static org.hamcrest.Matchers.is;
@@ -22,13 +21,18 @@ public class ConfigurationReaderTest {
         Configuration configuration = testReader.readConfigFileForOneFile(ConfigurationReader.FILE_NAME, ConfigurationReader.PATH);
         Map<String, List<String>> allRulesPerFile = configuration.getAllRulesPerFile();
 
-        assertThat(allRulesPerFile.size(), is(1));
-        assertThat(allRulesPerFile.values().size(), is(2));
 
         allRulesPerFile.forEach((k, v) ->  {
             System.out.println(k);
             v.forEach(s -> System.out.println("\t" + s));
         });
+
+        assertThat(allRulesPerFile.size(), is(1));
+        Set<String> filenameInConffile = allRulesPerFile.keySet();
+        assertThat(filenameInConffile.size(), is(1));
+        String filename = (String)filenameInConffile.toArray()[0];
+        List<String> rulesForFile = allRulesPerFile.get(filename);
+        assertThat(rulesForFile.size(), is(2));
     }
 
 }
