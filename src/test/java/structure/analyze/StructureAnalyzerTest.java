@@ -29,11 +29,17 @@ public class StructureAnalyzerTest {
 
     @Test
     public void readUtilFileAndWarnForImportsAndUseRulesFileShouldReturn2Warnings() throws IOException {
-        Configuration configuration = new ConfigurationReader().readConfigFileForOneFile(ConfigurationReader.FILE_NAME, ConfigurationReader.PATH);
+        Configuration configuration = new ConfigurationReader().readConfigFileForOneFile(ConfigurationReader.RULES_FILE_ONE_FILE, ConfigurationReader.PATH_RULES);
         List<String> warnings = analyzer.getAnalyzedResultAF2(StructureAnalyzer.FILE_DATUM_UTIL, StructureAnalyzer.PATH_UTIL, configuration);
         warnings.forEach(System.out::println);
         assertThat(warnings.size(), is(3));
 
+    }
+
+    @Test
+    public void readRulesFileForCatalog() throws IOException {
+        Configuration configuration = new ConfigurationReader().readConfigFileForOneFile(ConfigurationReader.RULES_FILE_ONE_CATALOG, ConfigurationReader.PATH_RULES);
+        List<String> warnings = analyzer.getAnalyzedResultAF4(StructureAnalyzer.PATH_CATALOG, configuration);
     }
 
 }

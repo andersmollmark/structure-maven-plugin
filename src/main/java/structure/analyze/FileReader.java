@@ -1,9 +1,9 @@
 package structure.analyze;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.nio.file.*;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -11,16 +11,17 @@ import java.util.stream.Stream;
  */
 public class FileReader {
 
-    private String pathS;
-    private Path path;
 
-    public FileReader(String path, String filename){
-        this.pathS = path;
-        this.path = Paths.get(pathS, filename);
+    public Stream<String> readFile(String path, String filename) throws IOException {
+        Stream<String> lines = Files.lines(Paths.get(path, filename));
+        return lines;
     }
 
-    public Stream<String> readFile() throws IOException {
-        Stream<String> lines = Files.lines(path);
-        return lines;
+    public Stream<Path> readPath(String path) throws IOException {
+        Path catalogPath = FileSystems.getDefault().getPath(path);
+//        Stream<Path> catalogStream = Files.walk(Paths.get(path), 1);
+        Stream<Path> catalogStream = Files.walk(catalogPath, 1);
+        return catalogStream;
+
     }
 }

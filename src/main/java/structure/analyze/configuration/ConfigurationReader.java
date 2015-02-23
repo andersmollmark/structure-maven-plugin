@@ -14,17 +14,18 @@ import static structure.analyze.predicates.StringPredicate.isAnAllowedReference;
  */
 public class ConfigurationReader {
 
-    public final static String PATH = "C:/Utveckling/git/structure-maven-plugin/src/test/resources";
-    public final static String FILE_NAME = "utilrules.structure";
+    public final static String PATH_RULES = "C:/Utveckling/git/structure-maven-plugin/src/test/resources";
+    public final static String RULES_FILE_ONE_FILE = "utilrules.structure";
+    public final static String RULES_FILE_ONE_CATALOG = "commonEntityRules.structure";
 
     private static final String MANDATORY_FILENAME_CHARS = "**.java";
     private static final String DOUBLESTAR = "**";
 
 
     public Configuration readConfigFileForOneFile(String configFile, String path) throws IOException {
-        FileReader theReader = new FileReader(path, configFile);
+        FileReader theReader = new FileReader();
 
-        Optional<String> ruleFile = theReader.readFile()
+        Optional<String> ruleFile = theReader.readFile(path, configFile)
                 .filter(isFileNameInConfFile())
                 .findFirst();
 
@@ -32,7 +33,7 @@ public class ConfigurationReader {
             throw new IllegalStateException("Configurationfile is not correct. Must have a row like this: '**AJavaFile.java'");
         }
 
-        List<String> allowedReferences = theReader.readFile()
+        List<String> allowedReferences = theReader.readFile(path, configFile)
                 .filter(isAnAllowedReference())
                 .collect(Collectors.toList());
 
@@ -41,6 +42,28 @@ public class ConfigurationReader {
 
         return conf;
     }
+
+    public Configuration readConfigForOneCatalog(String configFile, String path) throws IOException {
+        FileReader theReader = new FileReader();
+
+        Optional<String> ruleFile = theReader.readFile(path, configFile)
+                .filter(isFileNameInConfFile())
+                .findFirst();
+
+        if(!ruleFile.isPresent()){
+            throw new IllegalStateException("Configurationfile is not correct. Must have a row like this: '**AJavaFile.java'");
+        }
+
+        List<String> allowedReferences = theReader.readFile(path, configFile)
+                .filter(isAnAllowedReference())
+                .collect(Collectors.toList());
+
+        Configuration conf = new Configuration();
+        conf.addRules(stripDoubleStarFromFilename(ruleFile.get()), allowedReferences);
+
+        return conf;
+    }
+
 
     private String stripDoubleStarFromFilename(String filename){
         if(filename.length() <= MANDATORY_FILENAME_CHARS.length()){
